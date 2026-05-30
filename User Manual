@@ -1,0 +1,103 @@
+USER MANUAL
+
+AI Smart Complaint Portal
+
+Overview
+
+The AI Smart Complaint Portal is a web-based application that enables users to submit, track, and manage complaints efficiently. The system uses Artificial Intelligence to categorize complaints, prioritize urgent issues, and assist administrators in resolving them faster.
+
+Features
+
+- User Registration and Login
+- Submit Complaints Online
+- AI-Based Complaint Categorization
+- Complaint Status Tracking
+- Admin Dashboard
+- Search and Filter Complaints
+- Notifications and Updates
+
+System Requirements
+
+- Modern Web Browser (Chrome, Firefox, Edge)
+- Internet Connection
+
+Accessing the Portal
+
+1. Open the application URL in your browser.
+2. Sign up for a new account or log in with existing credentials.
+
+User Guide
+
+Register an Account
+
+1. Click on Register.
+2. Enter your details.
+3. Submit the registration form.
+4. Log in using your credentials.
+
+Submit a Complaint
+
+1. Click New Complaint.
+2. Enter the complaint title.
+3. Provide a detailed description.
+4. Select the complaint category (if required).
+5. Click Submit.
+
+Track Complaint Status
+
+1. Go to My Complaints.
+2. View the list of submitted complaints.
+3. Check the current status:
+   - Pending
+   - In Progress
+   - Resolved
+   - Rejected
+
+Search Complaints
+
+1. Navigate to the complaint list.
+2. Use the search bar to find complaints by title or ID.
+
+Administrator Guide
+
+View Complaints
+
+1. Log in as an administrator.
+2. Open the Admin Dashboard.
+3. Review incoming complaints.
+
+Update Complaint Status
+
+1. Select a complaint.
+2. Change its status.
+3. Save the update.
+
+AI Categorization
+
+The system automatically analyzes complaint descriptions and assigns appropriate categories to assist administrators.
+
+Troubleshooting
+
+Unable to Log In
+
+- Verify username and password.
+- Use the password reset option if available.
+
+Complaint Not Submitted
+
+- Check internet connectivity.
+- Ensure all required fields are completed.
+
+Page Not Loading
+
+- Refresh the browser.
+- Clear browser cache and try again.
+
+Limitations
+
+- AI categorization may occasionally require manual correction.
+- System performance depends on internet connectivity.
+
+Support
+
+For technical support or feedback, contact the project development team.
