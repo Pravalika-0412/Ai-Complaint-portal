@@ -1,0 +1,73 @@
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - .cache/pip/
+    - frontend/node_modules/
+
+backend:test:
+  stage: test
+  image: python:3.11-slim
+  before_script:
+    - cd backend
+    - python -m pip install --upgrade pip
+    - pip install -r requirements.txt
+  script:
+    - python -m py_compile main.py database.py models.py schemas.py ai_classifier.py
+    - python -c "from main import app; print(app.title)"
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH'
+
+frontend:lint:
+  stage: test
+  image: node:20-alpine
+  allow_failure: true
+  before_script:
+    - cd frontend
+    - npm ci
+  script:
+    - npm run lint
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH'
+
+frontend:build:
+  stage: build
+  image: node:20-alpine
+  before_script:
+    - cd frontend
+    - npm ci
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - frontend/dist/
+    expire_in: 1 week
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH'
+
+deploy:production:
+  stage: deploy
+  image: alpine:3.20
+  needs:
+    - job: frontend:build
+      artifacts: true
+    - job: backend:test
+  script:
+    - echo "Add your production deployment commands here."
+    - echo "Frontend build artifact is available in frontend/dist/"
+    - echo "Backend entrypoint is backend/main.py"
+  environment:
+    name: production
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: manual
