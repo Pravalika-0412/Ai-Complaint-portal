@@ -1,3 +1,6 @@
+frontend:https://ai-complaint-portal-production-e633.up.railway.app/
+backend:https://ai-complaint-portal-production.up.railway.app/
+
 # AI Smart Complaint Portal
 
 A full-stack hackathon project for civic grievance management. Citizens can submit complaints, the backend classifies each complaint with an NLP-based AI service, and admins can view, filter, analyze, and update complaint status.
