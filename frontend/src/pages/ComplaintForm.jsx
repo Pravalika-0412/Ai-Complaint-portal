@@ -11,6 +11,18 @@ const initialForm = {
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+const getSubmitErrorMessage = (err) => {
+  if (!err.response) {
+    return 'Unable to reach the backend API. Check VITE_API_BASE_URL and redeploy the frontend.'
+  }
+
+  const detail = err.response.data?.detail
+  if (Array.isArray(detail) && detail[0]?.msg) return detail[0].msg
+  if (typeof detail === 'string') return detail
+
+  return `Unable to submit complaint. Server returned ${err.response.status}.`
+}
+
 export default function ComplaintForm() {
   const [form, setForm] = useState(initialForm)
   const [created, setCreated] = useState(null)
@@ -51,7 +63,7 @@ export default function ComplaintForm() {
       setCreated(response.data)
       setForm(initialForm)
     } catch (err) {
-      setError(err.response?.data?.detail?.[0]?.msg || 'Unable to submit complaint. Please check the form.')
+      setError(getSubmitErrorMessage(err))
     } finally {
       setLoading(false)
     }
