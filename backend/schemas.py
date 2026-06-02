@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 ComplaintStatus = Literal["Pending", "In Progress", "Resolved"]
 
@@ -18,6 +18,8 @@ class ComplaintUpdate(BaseModel):
 
 
 class ComplaintOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: str
     name: str
     email: EmailStr
@@ -26,9 +28,6 @@ class ComplaintOut(BaseModel):
     category: str
     status: ComplaintStatus
     created_at: datetime
-
-    class Config:
-        from_attributes = True
 
 
 class StatsOut(BaseModel):

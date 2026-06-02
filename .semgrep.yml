@@ -1,0 +1,7 @@
+rules:
+  - id: fastapi-debug-disabled
+    pattern: FastAPI(debug=True, ...)
+    message: Do not enable FastAPI debug mode in production.
+    severity: ERROR
+    languages: [python]
+

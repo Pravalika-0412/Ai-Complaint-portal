@@ -16,7 +16,10 @@ def _generate_complaint_id() -> str:
 
 
 @router.post("/complaint", response_model=ComplaintOut, status_code=201)
-def create_complaint(payload: ComplaintCreate, db: Session = Depends(get_db)):
+def create_complaint(
+    payload: ComplaintCreate,
+    db: Session = Depends(get_db),
+) -> Complaint:
     complaint = Complaint(
         id=_generate_complaint_id(),
         name=payload.name,
@@ -33,7 +36,7 @@ def create_complaint(payload: ComplaintCreate, db: Session = Depends(get_db)):
 
 
 @router.get("/complaint/{complaint_id}", response_model=ComplaintOut)
-def get_complaint(complaint_id: str, db: Session = Depends(get_db)):
+def get_complaint(complaint_id: str, db: Session = Depends(get_db)) -> Complaint:
     complaint = db.get(Complaint, complaint_id.upper())
     if not complaint:
         raise HTTPException(status_code=404, detail="Complaint not found")
@@ -45,7 +48,7 @@ def list_complaints(
     category: str | None = Query(default=None),
     status: str | None = Query(default=None),
     db: Session = Depends(get_db),
-):
+) -> list[Complaint]:
     query = db.query(Complaint).order_by(Complaint.created_at.desc())
     if category and category != "All":
         query = query.filter(Complaint.category == category)
@@ -59,7 +62,7 @@ def update_complaint(
     complaint_id: str,
     payload: ComplaintUpdate,
     db: Session = Depends(get_db),
-):
+) -> Complaint:
     complaint = db.get(Complaint, complaint_id.upper())
     if not complaint:
         raise HTTPException(status_code=404, detail="Complaint not found")
@@ -71,7 +74,7 @@ def update_complaint(
 
 
 @router.get("/stats", response_model=StatsOut)
-def get_stats(db: Session = Depends(get_db)):
+def get_stats(db: Session = Depends(get_db)) -> dict[str, int | dict[str, int]]:
     complaints = db.query(Complaint).all()
     categories = {category: 0 for category in CATEGORIES}
     for complaint in complaints:

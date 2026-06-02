@@ -17,9 +17,7 @@ def get_allowed_origins() -> list[str]:
     ]
     deployed_origins = os.getenv("ALLOWED_ORIGINS", "")
     return local_origins + [
-        origin.strip().rstrip("/")
-        for origin in deployed_origins.split(",")
-        if origin.strip()
+        origin.strip().rstrip("/") for origin in deployed_origins.split(",") if origin.strip()
     ]
 
 
@@ -48,8 +46,9 @@ app.include_router(complaints_router)
 
 
 @app.get("/health")
-def health_check():
+def health_check() -> dict[str, str]:
     return {"message": "AI Smart Complaint Portal API is running"}
+
 
 static_dir = os.getenv(
     "STATIC_DIR",
