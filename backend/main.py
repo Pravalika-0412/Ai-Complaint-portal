@@ -17,7 +17,9 @@ def get_allowed_origins() -> list[str]:
     ]
     deployed_origins = os.getenv("ALLOWED_ORIGINS", "")
     return local_origins + [
-        origin.strip().rstrip("/") for origin in deployed_origins.split(",") if origin.strip()
+        origin.strip().rstrip("/")
+        for origin in deployed_origins.split(",")
+        if origin.strip()
     ]
 
 
